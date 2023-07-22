@@ -1,6 +1,19 @@
 #ifndef CRYPTOCONTEXT_DOCSTRINGS_H
 #define CRYPTOCONTEXT_DOCSTRINGS_H
 
+const char* cc_SetKeyGenLevel_docs = R"doc(
+    Parameters:
+    ----------
+        level (int): the level to set the key generation to
+)doc";
+
+const char* cc_GetKeyGenLevel_docs = R"doc(
+    Get the level used for key generation
+
+    Returns:
+        int: The level used for key generation
+)doc";
+
 const char* cc_GetRingDimension_docs = R"doc(
     Get the ring dimension used for this context
 
@@ -79,6 +92,20 @@ const char* cc_MakePackedPlaintext_docs = R"doc(
         Plaintext: plaintext
 )doc";
 
+//inline Plaintext MakeCoefPackedPlaintext(const std::vector<int64_t> &value, size_t depth = 1, uint32_t level = 0) const
+const char* cc_MakeCoefPackedPlaintext_docs = R"doc(
+    MakeCoefPackedPlaintext constructs a CoefPackedEncoding in this context
+
+    Parameters:
+    ----------
+        value (list): the vector (of integers) to convert
+        depth (int): is the multiplicative depth to encode the plaintext at
+        level (int): is the level to encode the plaintext at
+
+    Returns:
+    ----------
+        Plaintext: plaintext
+)doc";
 //MakeCKKSPackedPlaintext(const std::vector<std::complex<double>> &value, size_t depth = 1, uint32_t level = 0, const std::shared_ptr<ParmType> params = nullptr, usint slots = 0)
 const char* cc_MakeCKKSPackedPlaintextComplex_docs = R"doc(
     COMPLEX ARITHMETIC IS NOT AVAILABLE STARTING WITH OPENFHE 1.10.6, AND THIS METHOD BE DEPRECATED. USE THE REAL-NUMBER METHOD INSTEAD. MakeCKKSPackedPlaintext constructs a CKKSPackedEncoding in this context from a vector of complex numbers
@@ -207,7 +234,19 @@ const char* cc_EvalFastRotationExt_docs = R"doc(
     ----------
         Ciphertext: resulting ciphertext
 )doc";
+//phertext<Element> EvalAtIndex(ConstCiphertext<Element> ciphertext, int32_t index) const
+const char* cc_EvalAtIndex_docs = R"doc(
+    Moves i-th slot to slot 0
 
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): the ciphertext
+        i (int): the index
+    
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
 //void EvalAtIndexKeyGen(const PrivateKey<Element> privateKey, const std::vector<int32_t> &indexList, const PublicKey<Element> publicKey = nullptr)
 const char* cc_EvalAtIndexKeyGen_docs = R"doc(
     EvalAtIndexKeyGen generates evaluation keys for a list of indices
@@ -327,12 +366,12 @@ const char* cc_EvalAddMutablePlaintext_docs = R"doc(
 
     Parameters:
     ----------
-        ct (Ciphertext): ciphertext
-        pt (Plaintext): plaintext
+        ciphertext (Ciphertext): ciphertext
+        plaintext (Plaintext): plaintext
 
     Returns:
     ----------
-        Ciphertext: new ciphertext for ct + pt
+        Ciphertext: new ciphertext for ciphertext + plaintext
 )doc";
 
 //EvalAddMutableInPlace
@@ -369,7 +408,7 @@ const char* cc_EvalSubfloat_docs = R"doc(
 
     Parameters:
     ----------
-        ct (Ciphertext): ciphertext
+        ciphertext (Ciphertext): ciphertext
         constant (float): constant to subtract
 
     Returns:
@@ -433,6 +472,9 @@ const char* cc_EvalSubMutable_docs = R"doc(
         Ciphertext: new ciphertext for ct1 - ct2
 )doc";
 
+const char* cc_EvalSubMutableInPlace_docs = R"doc(
+    EvalSub - Inplace variant for EvalSubMutable
+)doc";
 //EvalSubMutable(ciphertext,plaintext)
 const char* cc_EvalSubMutablePlaintext_docs = R"doc(
     EvalSub - OpenFHE EvalSubMutable method for a ciphertext and plaintext. This is a mutable version - input ciphertexts may get automatically rescaled, or level-reduced.
@@ -651,20 +693,20 @@ const char* cc_EvalNegateInPlace_docs = R"doc(
 )doc";
 
 //EvalLogistic((ConstCiphertext<Element> ciphertext, double a, double b, uint32_t degree)
-const char* cc_EvalLogistic_docs = R"doc(
-    Evaluate approximate logistic function 1/(1 + exp(-x)) on a ciphertext using the Chebyshev approximation.
+// const char* cc_EvalLogistic_docs = R"doc(
+//     Evaluate approximate logistic function 1/(1 + exp(-x)) on a ciphertext using the Chebyshev approximation.
 
-    Parameters:
-    ----------
-        ciphertext (Ciphertext): input ciphertext
-        a (float): lower bound of argument for which the coefficients were found
-        b (float): upper bound of argument for which the coefficients were found
-        degree (int): Desired degree of approximation
+//     Parameters:
+//     ----------
+//         ciphertext (Ciphertext): input ciphertext
+//         a (float): lower bound of argument for which the coefficients were found
+//         b (float): upper bound of argument for which the coefficients were found
+//         degree (int): Desired degree of approximation
 
-    Returns:
-    ----------
-        Ciphertext: the result of polynomial evaluation
-)doc";
+//     Returns:
+//     ----------
+//         Ciphertext: the result of polynomial evaluation
+// )doc";
 
 //EvalChebyshevSeries(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients, double a, double b)
 const char* cc_EvalChebyshevSeries_docs = R"doc(
@@ -809,6 +851,64 @@ const char* cc_EvalSumKeyGen_docs = R"doc(
         None
 )doc";
 
+//EvalSumRowsKeyGen(const PrivateKey<Element> privateKey, const PublicKey<Element> publicKey = nullptr, usint rowSize = 0, usint subringDim = 0)
+const char* cc_EvalSumRowsKeyGen_docs = R"doc(
+    EvalSumRowsKeyGen generates the key map to be used by EvalSumRows
+
+    Parameters:
+    ----------
+        privateKey (PrivateKey): private key
+        publicKey (PublicKey): public key (used in NTRU schemes)
+        rowSize (int): number of rows
+        subringDim (int): dimension of the subring
+    
+    Returns:
+    ----------
+        dict: Evaluation key map, where the keys being integer indexes and values being EvalKey objects
+)doc";
+
+//EvalSumColsKeyGen(const PrivateKey<Element> privateKey, const PublicKey<Element> publicKey = nullptr)
+const char* cc_EvalSumColsKeyGen_docs = R"doc(
+    EvalSumColsKeyGen generates the key map to be used by EvalSumCols
+
+    Parameters:
+    ----------
+        privateKey (PrivateKey): private key
+        publicKey (PublicKey): public key (used in NTRU schemes)
+    
+    Returns:
+    ----------
+        dict: Evaluation key map, where the keys being integer indexes and values being EvalKey objects
+)doc";
+
+//Ciphertext<Element> EvalSumRows(ConstCiphertext<Element> ciphertext, usint rowSize, const std::map<usint, EvalKey<Element>> &evalSumKeyMap, usint subringDim = 0)
+const char* cc_EvalSumRows_docs = R"doc(
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        rowSize (int): number of rows
+        evalSumKeyMap (dict): evaluation key map, where the keys being integer indexes and values being EvalKey objects
+        subringDim (int): dimension of the subring
+    
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
+
+//Ciphertext<Element> EvalSumCols(ConstCiphertext<Element> ciphertext, usint rowSize, const std::map<usint, EvalKey<Element>> &evalSumKeyMap
+const char* cc_EvalSumCols_docs = R"doc(
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        rowSize (int): number of rows
+        evalSumKeyMap (dict): evaluation key map, where the keys being integer indexes and values being EvalKey objects
+    
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
 //EvalInnerProduct(ciphertext,ciphertext,batchSize)
 const char* cc_EvalInnerProduct_docs = R"doc(
     Evaluates inner product in batched encoding
@@ -1079,7 +1179,6 @@ const char* cc_DeserializeEvalMultKey_docs = R"doc(
     ----------
         bool: true on success
 )doc";
-
 
 
 #endif //CRYPTOCONTEXT_DOCSTRINGS_H
