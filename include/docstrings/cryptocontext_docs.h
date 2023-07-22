@@ -682,6 +682,403 @@ const char* cc_EvalChebyshevSeries_docs = R"doc(
         Ciphertext: the result of polynomial evaluation
 )doc";
 
+//EvalChebyshevSeriesLinear(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients, double a, double b)
+const char* cc_EvalChebyshevSeriesLinear_docs = R"doc(
+    Evaluate Chebyshev polynomial of degree less than 5.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        coefficients (list): is the list of coefficients in Chebyshev expansion
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation
+)doc";
+
+//EvalChebyshevSeriesPS(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients, double a, double b)
+const char* cc_EvalChebyshevSeriesPS_docs = R"doc(
+    Evaluate Chebyshev polynomial of degree greater or equal to 5.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        coefficients (list): is the list of coefficients in Chebyshev expansion
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation
+)doc";
+
+//EvalChebyshevFunction(std::function<double(double)> func, ConstCiphertext<Element> ciphertext, double a, double b, uint32_t degree)
+const char* cc_EvalChebyshevFunction_docs = R"doc(
+    Method for calculating Chebyshev evaluation on a ciphertext for a smooth input function over the range [a,b].
+
+    Parameters:
+    ----------
+        func (function): is the function to be approximated
+        ciphertext (Ciphertext): input ciphertext
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+        degree (int): Desired degree of approximation
+
+    Returns:
+    ----------
+        Ciphertext: the coefficients of the Chebyshev approximation.
+)doc";
+
+//EvanSin(ciphertext,double,double,degree)
+const char* cc_EvalSin_docs = R"doc(
+    Evaluate approximate sine function on a ciphertext using the Chebyshev approximation.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+        degree (int): Desired degree of approximation
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//EvalCos(ciphertext,double,double,degree)
+const char* cc_EvalCos_docs = R"doc(
+    Evaluate approximate cosine function on a ciphertext using the Chebyshev approximation.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+        degree (int): Desired degree of approximation
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//EvalLogistic(ciphertext,double,double,degree)
+const char* cc_EvalLogistic_docs = R"doc(
+    Evaluate approximate logistic function 1/(1 + exp(-x)) on a ciphertext using the Chebyshev approximation.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+        degree (int): Desired degree of approximation
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//EvalDivide(ciphertext,double,double,degree)
+const char* cc_EvalDivide_docs = R"doc(
+    Evaluate approximate division function 1/x where x >= 1 on a ciphertext using the Chebyshev approximation.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        a (float): lower bound of argument for which the coefficients were found
+        b (float): upper bound of argument for which the coefficients were found
+        degree (int): Desired degree of approximation
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//EvalSumKeyGen(const PrivateKey<Element> privateKey, const PublicKey<Element> publicKey = nullptr)
+const char* cc_EvalSumKeyGen_docs = R"doc(
+    EvalSumKeyGen generates the key map to be used by evalsum
+
+    Parameters:
+    ----------
+        privateKey (PrivateKey): private key
+        publicKey (PublicKey): public key (used in NTRU schemes)
+    
+    Returns:
+    ----------
+        None
+)doc";
+
+//EvalInnerProduct(ciphertext,ciphertext,batchSize)
+const char* cc_EvalInnerProduct_docs = R"doc(
+    Evaluates inner product in batched encoding
+
+    Parameters:
+    ----------
+        ciphertext1 (Ciphertext): first vector
+        ciphertext2 (Ciphertext): second vector
+        batchSize (int): size of the batch to be summed up
+
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
+
+//EvalInnerProduct(cipher,plain,batchsize)
+const char* cc_EvalInnerProductPlaintext_docs = R"doc(
+    Evaluates inner product in batched encoding
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): first vector - ciphertext
+        plaintext (Plaintext): second vector - plaintext
+        batchSize (int): size of the batch to be summed up
+
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
+
+//Ciphertext<Element> EvalMerge(const std::vector<Ciphertext<Element>> &ciphertextVec) const
+const char* cc_EvalMerge_docs = R"doc(
+    Merges multiple ciphertexts with encrypted results in slot 0 into a single ciphertext The slot assignment is done based on the order of ciphertexts in the vector
+
+    Parameters:
+    ----------
+        ciphertextVec (list): vector of ciphertexts to be merged.
+
+    Returns:
+    ----------
+        Ciphertext: resulting ciphertext
+)doc";
+
+//inline virtual Ciphertext<Element> EvalPoly(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients) const
+const char* cc_EvalPoly_docs = R"doc(
+    Method for polynomial evaluation for polynomials represented as power series.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        coefficients (list): is the vector of coefficients in the polynomial; the size of the vector is the degree of the polynomial + 1
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//inline Ciphertext<Element> EvalPolyLinear(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients)
+const char* cc_EvalPolyLinear_docs = R"doc(
+    Method for polynomial evaluation for polynomials represented in the power series. This uses EvalPolyLinear, which uses a binary tree computation of the polynomial powers.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        coefficients (list): is the vector of coefficients in the polynomial; the size of the vector is the degree of the polynomial
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//inline Ciphertext<Element> EvalPolyPS(ConstCiphertext<Element> ciphertext, const std::vector<double> &coefficients) const
+const char* cc_EvalPolyPS_docs = R"doc(
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): input ciphertext
+        coefficients (list): is the vector of coefficients in the polynomial; the size of the vector is the degree of the polynomial
+
+    Returns:
+    ----------
+        Ciphertext: the result of polynomial evaluation.
+)doc";
+
+//Rescale(cipher)
+const char* cc_Rescale_docs = R"doc(
+    Rescale - An alias for OpenFHE ModReduce method. This is because ModReduce is called Rescale in CKKS.
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): ciphertext
+
+    Returns:
+    ----------
+        Ciphertext: mod reduced ciphertext
+)doc";
+
+//void EvalBootstrapSetup(std::vector<uint32_t> levelBudget = {5, 4}, std::vector<uint32_t> dim1 = {0, 0}, uint32_t slots = 0, uint32_t correctionFactor = 0)
+const char* cc_EvalBootstrapSetup_docs = R"doc(
+    Bootstrap functionality: There are three methods that have to be called in this specific order:
+
+    1. EvalBootstrapSetup: computes and encodes the coefficients for encoding and decoding and stores the necessary parameters
+
+    2. EvalBootstrapKeyGen: computes and stores the keys for rotations and conjugation
+
+    3. EvalBootstrap: refreshes the given ciphertext Sets all parameters for the linear method for the FFT-like method
+
+    Parameters:
+    ----------
+        levelBudget (list):  vector of budgets for the amount of levels in encoding and decoding
+        dim1 (list): vector of inner dimension in the baby-step giant-step routine for encoding and decodingl
+        slots (int): number of slots to be bootstraped
+        correctionFactor (int): alue to rescale message by to improve precision. If set to 0, we use the default logic. This value is only used when get_native_int()=64
+
+    Returns:
+    ----------
+        None
+)doc";
+
+//void EvalBootstrapKeyGen(const PrivateKey<Element> privateKey, uint32_t slots)
+const char* cc_EvalBootstrapKeyGen_docs = R"doc(
+    Generates all automorphism keys for EvalBT. EvalBootstrapKeyGen uses the baby-step/giant-step strategy.
+
+    Parameters:
+    ----------
+        privateKey (PrivateKey): private key.
+        slots (int): number of slots to support permutations on.
+
+    Returns:
+    ----------
+        None
+)doc";
+
+//Ciphertext<Element> EvalBootstrap(ConstCiphertext<Element> ciphertext, uint32_t numIterations = 1, uint32_t precision = 0)
+const char* cc_EvalBootstrap_docs = R"doc(
+    Defines the bootstrapping evaluation of ciphertext using either the FFT-like method or the linear method
+
+    Parameters:
+    ----------
+        ciphertext (Ciphertext): the input ciphertext
+        numIterations (int): number of iterations to run iterative bootstrapping (Meta-BTS). Increasing the iterations increases the precision of bootstrapping
+        precision (int): precision of initial bootstrapping algorithm. This value is determined by the user experimentally by first running EvalBootstrap with numIterations = 1 and precision = 0 (unused).
+
+    Returns:
+    ----------
+        Ciphertext: the refreshed ciphertext
+)doc";
+
+//inline std::shared_ptr<std::map<usint, EvalKey<Element>>> EvalAutomorphismKeyGen(const PrivateKey<Element> privateKey, const std::vector<usint> &indexLis
+const char* cc_EvalAutomorphismKeyGen_docs = R"doc(
+    Generate automophism keys for a given private key; Uses the private key for encryption
+
+    Parameters:
+    ----------
+        privateKey (PrivateKey): private key.
+        indexList (list): list of automorphism indices to be computed.
+
+    Returns:
+    ----------
+        dict: returns the evaluation key
+)doc";
+
+//inline std::shared_ptr<std::map<usint, EvalKey<Element>>> EvalAutomorphismKeyGen(const PublicKey<Element> publicKey, const PrivateKey<Element> privateKey, const std::vector<usint> &indexList) const
+const char* cc_EvalAutomorphismKeyGenPublic_docs = R"doc(
+    Generate automophism keys for a given private key.
+
+    Parameters:
+    ----------
+        publicKey (PublicKey): original public key.
+        privateKey (PrivateKey): original private key.
+        indexList (list): list of automorphism indices to be computed.
+
+    Returns:
+    ----------
+        dict: returns the evaluation keys; index 0 of the vector corresponds to plaintext index 2, index 1 to plaintex index 3, etc.
+)doc";
+
+//inline usint FindAutomorphismIndex(const usint idx) const
+const char* cc_FindAutomorphismIndex_docs = R"doc(
+    Find the automorphism index for a given plaintext index
+
+    Parameters:
+    ----------
+        idx (int): plaintext index
+
+    Returns:
+    ----------
+        int: automorphism index
+)doc";
+
+//inline std::vector<usint> FindAutomorphismIndices(const std::vector<usint> idxList) const
+const char* cc_FindAutomorphismIndices_docs = R"doc(
+    Find the automorphism indices for a given list of plaintext indices
+
+    Parameters:
+    ----------
+        idxList (list): list of plaintext indices
+
+    Returns:
+    ----------
+        list: list of automorphism indices
+)doc";
+
+//ClearEvalMultKeys()
+const char* cc_ClearEvalMultKeys_docs = R"doc(
+    ClearEvalMultKeys - flush EvalMultKey cache
+)doc";
+
+//ClearEvalAutomorphismKeys()
+const char* cc_ClearEvalAutomorphismKeys_docs = R"doc(
+    ClearEvalAutomorphismKeys - flush EvalAutomorphismKey cache
+)doc";
+
+//static inline bool SerializeEvalAutomorphismKey(std::ostream &ser, const ST &sertype, std::string id = "")
+const char* cc_SerializeEvalAutomorphismKey_docs = R"doc(
+    SerializeEvalAutomorphismKey for a single EvalAuto key or all of the EvalAuto keys
+
+    Parameters:
+    ----------
+        filename (str): output file
+        sertype (SERJSON, SERBINARY): serialization type
+        id (str): key to serialize; empty string means all keys
+
+    Returns:
+    ----------
+        bool: true on success
+)doc";
+
+//SerializeEvalMultKey(filename,sertype,id)
+const char* cc_SerializeEvalMultKey_docs = R"doc(
+    SerializeEvalMultKey for a single EvalMult key or all of the EvalMult keys
+
+    Parameters:
+    ----------
+        filename (str): output file
+        sertype (SERJSON, SERBINARY): type of serialization
+        id (str): for key to serialize - if empty string, serialize them all
+
+    Returns:
+    ----------
+        bool: true on success
+)doc";
+
+//DeserializeEvalAutomorphismKey(filename,sertype)
+const char* cc_DeserializeEvalAutomorphismKey_docs = R"doc(
+    DeserializeEvalAutomorphismKey deserialize all keys in the serialization deserialized keys silently replace any existing matching keys deserialization will create CryptoContext if necessary
+
+    Parameters:
+    ----------
+        filename (str): path for the file to deserialize from
+        sertype (SERJSON, SERBINARY): type of serialization
+
+    Returns:
+    ----------
+        bool: true on success
+)doc";
+
+//DeserializeEvalMultKey(filename,sertype)
+const char* cc_DeserializeEvalMultKey_docs = R"doc(
+    DeserializeEvalMultKey deserialize all keys in the serialization deserialized keys silently replace any existing matching keys deserialization will create CryptoContext if necessary
+
+    Parameters:
+    ----------
+        filename (str): path for the file to deserialize from
+        sertype (SERJSON, SERBINARY): type of serialization
+
+    Returns:
+    ----------
+        bool: true on success
+)doc";
 
 
 
