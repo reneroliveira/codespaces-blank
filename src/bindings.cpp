@@ -225,9 +225,17 @@ void bind_crypto_context(py::module &m)
              py::arg("rowSize"),
              py::arg("evalSumKeyMap"))
         .def("EvalInnerProduct", static_cast<Ciphertext<DCRTPoly> (CryptoContextImpl<DCRTPoly>::*)
-            (ConstCiphertext<DCRTPoly>, ConstCiphertext<DCRTPoly>, usint) const>(&CryptoContextImpl<DCRTPoly>::EvalInnerProduct))
+            (ConstCiphertext<DCRTPoly>, ConstCiphertext<DCRTPoly>, usint) const>(&CryptoContextImpl<DCRTPoly>::EvalInnerProduct),
+             py::arg("ciphertext1"),
+             py::arg("ciphertext2"),
+             py::arg("batchSize"))
         .def("EvalInnerProduct", static_cast<Ciphertext<DCRTPoly> (CryptoContextImpl<DCRTPoly>::*)
-            (ConstCiphertext<DCRTPoly>, ConstPlaintext, usint) const>(&CryptoContextImpl<DCRTPoly>::EvalInnerProduct))        
+            (ConstCiphertext<DCRTPoly>, ConstPlaintext, usint) const>(&CryptoContextImpl<DCRTPoly>::EvalInnerProduct),
+             py::arg("ciphertext"),
+             py::arg("plaintext"),
+             py::arg("batchSize"))
+        .def("EvalMerge", &CryptoContextImpl<DCRTPoly>::EvalMerge,
+             py::arg("ciphertextVec"))
         .def("EvalPoly", &CryptoContextImpl<DCRTPoly>::EvalPoly)
         .def("EvalPolyLinear", &CryptoContextImpl<DCRTPoly>::EvalPolyLinear)
         .def("EvalPolyPS", &CryptoContextImpl<DCRTPoly>::EvalPolyPS)
