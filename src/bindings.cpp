@@ -13,6 +13,8 @@
 #include "cryptocontext_wrapper.h"
 #include "binfhe_bindings.h"
 #include "cryptocontext_docs.h"
+#include "plaintext_docs.h"
+#include "ciphertext_docs.h"
 
 using namespace lbcrypto;
 namespace py = pybind11;
@@ -729,17 +731,28 @@ void bind_keys(py::module &m)
 void bind_encodings(py::module &m)
 {
     py::class_<PlaintextImpl, std::shared_ptr<PlaintextImpl>>(m, "Plaintext")
-        .def("GetScalingFactor", &PlaintextImpl::GetScalingFactor)
-        .def("SetScalingFactor", &PlaintextImpl::SetScalingFactor)
-        .def("GetLength", &PlaintextImpl::GetLength)
-        .def("GetSchemeID", &PlaintextImpl::GetSchemeID)
-        .def("SetLength", &PlaintextImpl::SetLength)
-        .def("IsEncoded", &PlaintextImpl::IsEncoded)
-        .def("GetLogPrecision", &PlaintextImpl::GetLogPrecision)
-        //.def("GetEncondingParams", &PlaintextImpl::GetEncondingParams)
-        .def("Encode", &PlaintextImpl::Encode)
-        .def("Decode", &PlaintextImpl::Decode)
-        .def("GetCKKSPackedValue", &PlaintextImpl::GetCKKSPackedValue)
+        .def("GetScalingFactor", &PlaintextImpl::GetScalingFactor,
+            ptx_GetScalingFactor_docs)
+        .def("SetScalingFactor", &PlaintextImpl::SetScalingFactor,
+            ptx_SetScalingFactor_docs,
+            py::arg("sf"))
+        .def("GetLength", &PlaintextImpl::GetLength,
+            ptx_GetLength_docs)
+        .def("GetSchemeID", &PlaintextImpl::GetSchemeID,
+            ptx_GetSchemeID_docs)
+        .def("SetLength", &PlaintextImpl::SetLength,
+            ptx_SetLength_docs,
+            py::arg("newSize"))
+        .def("IsEncoded", &PlaintextImpl::IsEncoded,
+            ptx_IsEncoded_docs)
+        .def("GetLogPrecision", &PlaintextImpl::GetLogPrecision,
+            ptx_GetLogPrecision_docs)
+        .def("Encode", &PlaintextImpl::Encode,
+            ptx_Encode_docs)
+        .def("Decode", &PlaintextImpl::Decode,
+            ptx_Decode_docs)
+        .def("GetCKKSPackedValue", &PlaintextImpl::GetCKKSPackedValue,
+            ptx_GetCKKSPackedValue_docs)
         .def("__repr__", [](const PlaintextImpl &p)
              {
         std::stringstream ss;
@@ -763,8 +776,11 @@ void bind_ciphertext(py::module &m)
        // .def(py::self + py::self);
     // .def("GetDepth", &CiphertextImpl<DCRTPoly>::GetDepth)
     // .def("SetDepth", &CiphertextImpl<DCRTPoly>::SetDepth)
-     .def("GetLevel", &CiphertextImpl<DCRTPoly>::GetLevel)
-     .def("SetLevel", &CiphertextImpl<DCRTPoly>::SetLevel);
+     .def("GetLevel", &CiphertextImpl<DCRTPoly>::GetLevel,
+        ctx_GetLevel_docs)
+     .def("SetLevel", &CiphertextImpl<DCRTPoly>::SetLevel,
+        ctx_SetLevel_docs,
+        py::arg("level"));
     // .def("GetHopLevel", &CiphertextImpl<DCRTPoly>::GetHopLevel)
     // .def("SetHopLevel", &CiphertextImpl<DCRTPoly>::SetHopLevel)
     // .def("GetScalingFactor", &CiphertextImpl<DCRTPoly>::GetScalingFactor)
